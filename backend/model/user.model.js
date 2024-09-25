@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    emai: {
+    email: {
         type: String,
         required: true
     },
@@ -21,9 +21,9 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Blog"
     }]
-})
+} , {timestamps : true})
 
-userSchema.pre("save", async function () {
+userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next()
 
     this.password = await bcrypt.hash(this.password, 10)
