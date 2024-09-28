@@ -20,8 +20,12 @@ const userSchema = new mongoose.Schema({
     blogs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Blog"
+    }],
+    likedBlogs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Blog"
     }]
-} , {timestamps : true})
+}, { timestamps: true })
 
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next()
