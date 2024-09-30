@@ -1,9 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -13,10 +16,10 @@ const Login = () => {
         password
       }, { withCredentials: true })
 
-      console.log(response)
+      if (response.data?.token)
+        navigate('/blogs/all')
     } catch (error) {
-      console.log('error in login')
-      console.log(error.message)
+      setErrorMessage(error.response.data.msg)
     }
   }
 
@@ -45,6 +48,7 @@ const Login = () => {
           required
           className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
         />
+        <p className='flex flex-start p-1 text-l text-red-700' >{errorMessage}</p>
         <button
           type="submit"
           className="w-full py-3 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none"
