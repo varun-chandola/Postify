@@ -51,40 +51,46 @@ const Signup = () => {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form
-        className="bg-white p-8 rounded-lg shadow-md w-80"
-        encType="multipart/form-data"
-        onSubmit={handleFormSubmit}
-      >
-        <h2 className="text-2xl font-semibold text-center mb-6">Create Account</h2>
-        <input type="text" placeholder="Username" required
-          className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="email" placeholder="Email" required
-          className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password" placeholder="Password" required
-          className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="file"
-          name='avatar'
-          className='w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:border-blue-500 avatar'
-          onChange={(e) => setFile(e.target.files[0])}
-        />
-        <button
-          type="submit"
-          className="w-full py-3 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none"
+    <div className='flex justify-center items-center min-h-screen bg-gray-800 p-6'>
+      <div className='bg-white p-8 rounded-lg shadow-lg max-w-md w-full'>
+        <form
+          encType="multipart/form-data"
+          onSubmit={handleFormSubmit}
         >
-          Sign Up
-        </button>
-      </form>
+          <h2 className="text-3xl font-semibold mb-6 text-center text-gray-900">Sign Up</h2>
+
+          <input type="text" placeholder="Username" required
+            className="w-full focus:outline-none p-3 bg-gray-100 rounded-2xl mb-4 text-lg border border-gray-300 focus:ring-2 focus:ring-blue-500"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+
+          <input
+            type="email" placeholder="email@gmail.com" required
+            className="w-full focus:outline-none p-3 bg-gray-100 rounded-2xl mb-4 text-lg border border-gray-300 focus:ring-2 focus:ring-blue-500"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <input
+            type="password" placeholder="Password" required
+            className="w-full focus:outline-none p-3 bg-gray-100 rounded-2xl mb-4 text-lg border border-gray-300 focus:ring-2 focus:ring-blue-500"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <input
+            type="file"
+            name='avatar'
+            className="w-full bg-gray-100 rounded-2xl focus:outline-none p-3 file:p-3 file:rounded-xl file:bg-gray-700 file:text-white mb-4 border border-gray-300"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+
+          <button
+            type="submit"
+            className="bg-blue-600 p-3 text-white w-full rounded-xl text-lg transition duration-300 hover:bg-blue-700"
+          >
+            Sign Up
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
