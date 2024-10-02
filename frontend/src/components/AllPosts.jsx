@@ -1,31 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { BiSolidLike } from "react-icons/bi";
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar';
 
 const AllPosts = () => {
-  const [like, setLike] = useState(0)
   const [allBlogs, setAllBlogs] = useState([])
   const navigate = useNavigate()
-  // console.log(document.cookie?.split('=')[1])
   const fetchBlogs = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/v1/user/blogs/all', { withCredentials: true })
       setAllBlogs(response.data?.allBlogs)
       console.log(response.data?.allBlogs)
     } catch (error) {
-      console.log("error in all post\n", error.message)
+      if ((error.response?.data?.msg).includes('unauthorized'))
+        navigate('/login')
     }
   }
-
-  const liked = async () => {
-    try {
-      const response = await axios.post(`http://localhost:5000/api/v1/user/:blogId`)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
 
   useEffect(() => {
     fetchBlogs()
@@ -33,10 +23,11 @@ const AllPosts = () => {
 
   return (
     <>
-      <h1>Recent Blog Posts</h1>
-      <div className='flex flex-wrap gap-10 mt-10'>
+      <Navbar />
+      <h1 className='flex items-center justify-center mt-10 text-2xl'>All Blog Posts</h1>
+      <div className='flex justify-center flex-wrap gap-10 mt-10'>
         {allBlogs.map(each =>
-          <div key={each._id} className='flex flex-col flex-wrap' onClick={()=>navigate('')}>
+          <div key={each._id} className='blogs flex flex-col flex-wrap hover:cursor-pointer' onClick={() => navigate(`/blog/${each._id}`)}>
             <div className='mb-5'>
               <img src={each.image} width={350} className='rounded-3xl' />
             </div>
@@ -56,10 +47,6 @@ const AllPosts = () => {
                   {tag.trim()}
                 </button>
               ))}
-            </div>
-            <div className='flex text-2xl items-center mt-3'>
-              <BiSolidLike onClick={liked} className='mr-3 hover:cursor-pointer' />
-              <p>{each.likes}</p>
             </div>
           </div>
         )}
