@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
 
 const Signup = () => {
@@ -51,16 +51,16 @@ const Signup = () => {
   }
 
   return (
-    <div className='flex justify-center items-center min-h-screen bg-gray-800 p-6'>
-      <div className='bg-white p-8 rounded-lg shadow-lg max-w-md w-full'>
+      <div className='flex items-center justify-center h-[100vh]'>
         <form
           encType="multipart/form-data"
           onSubmit={handleFormSubmit}
+          className='w-1/2'
         >
           <h2 className="text-3xl font-semibold mb-6 text-center text-gray-900">Sign Up</h2>
 
           <input type="text" placeholder="Username" required
-            className="w-full focus:outline-none p-3 bg-gray-100 rounded-2xl mb-4 text-lg border border-gray-300 focus:ring-2 focus:ring-blue-500"
+            className="w-full focus:outline-none p-3 bg-gray-100 rounded-2xl mb-4 text-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 "
             onChange={(e) => setUsername(e.target.value)}
           />
 
@@ -89,9 +89,9 @@ const Signup = () => {
           >
             Sign Up
           </button>
+          <p className='flex justify-start mt-5'>Already a user ? <Link to='/login' className='text-blue-500 ml-2 hover:underline' >Login</Link></p>
         </form>
       </div>
-    </div>
   );
 };
 
