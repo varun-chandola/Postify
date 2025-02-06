@@ -38,7 +38,7 @@ router.route('/:blogId')
     .post(authmiddleware, likeBlog)
 
 router.get('/feed/yourLikedBlogs', authmiddleware, userLikedBlogs)
-router.get('/feed/yourCollections', authmiddleware, userCollections)
+router.get('/feed/yourCollections', userCollections)
 router.post('/feed/create-collection', authmiddleware, createCollection)
 router.get('/:collectionName/blogs', authmiddleware, getAllBlogsInACollection)
 
