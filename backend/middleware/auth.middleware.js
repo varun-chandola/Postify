@@ -2,12 +2,12 @@ import jwt from "jsonwebtoken"
 export const authmiddleware = async (req, res, next) => {
     try {
         const token = req.cookies?.token
-        console.log(token)
+        console.log("token", token)
         if (!token) return res.status(409).json({
-            msg: "unauthorized . login first"
+            msg: "unauthorized"
         })
-
         const decoded = jwt.verify(token, process.env.jwt_secret)
+        console.log(decoded)
         req.user = decoded
         next()
     } catch (error) {
