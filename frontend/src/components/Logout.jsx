@@ -1,35 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from './Navbar'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 
 const Logout = () => {
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+
     const logoutUser = async () => {
         try {
-            const response = await axios.post("http://localhost:5000/api/v1/user/logout", {}, { withCredentials: true })
-            console.log(response?.data)
+            setLoading(true)
+            const response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/v1/user/logout`, {}, { withCredentials: true })
             toast.success(response?.data?.msg)
-            if(response?.data?.msg)
+            if (response?.data?.msg == 'Logged Out') {
                 navigate('/')
+                localStorage.removeItem('loggedInUser')
+            }
+            setLoading(false)
         } catch (error) {
-            toast.error(error?.response?.data?.msg)
+            if (error.response?.data?.msg == `unauthorized`) {
+                toast.error(error.response?.data?.msg)
+                navigate('/login')
+            }
         }
     }
+
     return (
         <>
             <Navbar />
-            <div className='flex items-center justify-center h-[100vh]'>
-                <div className='flex flex-col'>
-                    <h1 className='text-5xl font-bold w-[80vw] flex items-center justify-center' >Are You Sure ? </h1>
-                    <div className='flex justify-between mt-20'>
-                        <button className='text-5xl font-bold text-white bg-green-700 rounded-3xl p-5 w-1/3 hover:bg-green-900' onClick={logoutUser}>Yes</button>
-                        <button className='text-5xl font-bold text-white bg-red-700 rounded-3xl p-5 w-1/3 hover:bg-red-900'
-                            onClick={() => navigate('/blogs/all')}
-                        >No</button>
+            <div className='h-screen'>
+                <button className="btn flex text-xl font-bold mt-5 mx-auto" onClick={() => document.getElementById('my_modal_5').showModal()}>Log Out</button>
+                <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+                    <div className="modal-box">
+                        <h3 className="font-bold text-lg">Want to Logout !</h3>
+                        <p className="py-4">Are You Sure ?</p>
+                        <div className="modal-action">
+                            <form method="dialog">
+                                <button className='btn mx-3' onClick={logoutUser}>
+                                    {`${loading ? <span class="loading loading-spinner loading-sm"></span> : `Yes`}`}
+                                </button>
+                                <button className="btn mx-4" onClick={() => navigate('/blogs/all')}>No</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                </dialog>
+                <button className="btn flex text-xl font-bold mt-5 mx-auto">Update Details</button>
             </div>
         </>
     )

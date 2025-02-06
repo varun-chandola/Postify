@@ -8,7 +8,6 @@ import AllPosts from "./components/AllPosts.jsx"
 import NewBlog from './components/NewBlog.jsx'
 import BlogById from './components/BlogById.jsx'
 import Profile from './components/Profile.jsx'
-import Community from "./components/Community.jsx"
 import UpdateBlogs from "./components/UpdateBlogs.jsx"
 import Logout from "./components/Logout.jsx"
 import Missing from './components/Missing.jsx'
@@ -16,7 +15,6 @@ import { Toaster } from "react-hot-toast"
 import './index.css'
 import Context from './context/Context.jsx'
 import CreateCollection from './components/CreateCollection.jsx'
-import Navbar from './components/Navbar.jsx'
 import Collection from './components/Collection.jsx'
 import Footer from './components/Footer.jsx'
 
@@ -33,7 +31,6 @@ createRoot(document.getElementById('root')).render(
         <Route path='/blog/:blogId' element={<BlogById />} />
         <Route path='/:blogId/update' element={<UpdateBlogs />} />
         <Route path='/feed/profile' element={<Profile />} />
-        <Route path='/feed/community' element={<Community />} />
         <Route path='/feed/settings' element={<Logout />} />
         <Route path='/create/new-collection' element={<CreateCollection />} />
         <Route path='/:collectionName/blogs' element={<Collection />} />
