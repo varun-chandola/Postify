@@ -43,7 +43,11 @@ export const signup = async (req, res) => {
             username
         }, process.env.jwt_secret)
 
-        return res.status(200).cookie('token', token).json({
+        return res.status(200).cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'None',
+        }).json({
             msg: "User Registration Successful",
             token
         })
@@ -75,7 +79,11 @@ export const login = async (req, res) => {
             username
         }, process.env.jwt_secret)
 
-        res.status(200).cookie('token', token).json({
+        res.status(200).cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'None',
+        }).json({
             msg: "Login successful",
             token
         })
