@@ -5,7 +5,8 @@ const blogSchema = new mongoose.Schema({
         ref: "User"
     },
     image: {
-        type: String
+        type: String,
+        default: "https://archive.org/download/placeholder-image/placeholder-image.jpg"
     },
     title: {
         type: String,
@@ -15,10 +16,15 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    parentCollection: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Collection',
+    },
     tags: [],
     likes: {
         type: Number,
         default: 0
-    }
+    },
+    draft: String
 }, { strict: false, timestamps: true })
 export const Blog = mongoose.model("Blog", blogSchema)
